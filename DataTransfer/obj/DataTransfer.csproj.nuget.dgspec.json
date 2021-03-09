@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Eric\\source\\repos\\Advanced C#\\OlympicFlagList\\DataTransfer\\DataTransfer.csproj": {}
+    "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\DataTransfer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Eric\\source\\repos\\Advanced C#\\OlympicFlagList\\DataTransfer\\DataTransfer.csproj": {
+    "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\DataTransfer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eric\\source\\repos\\Advanced C#\\OlympicFlagList\\DataTransfer\\DataTransfer.csproj",
+        "projectUniqueName": "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\DataTransfer.csproj",
         "projectName": "DataTransfer",
-        "projectPath": "C:\\Users\\Eric\\source\\repos\\Advanced C#\\OlympicFlagList\\DataTransfer\\DataTransfer.csproj",
-        "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eric\\source\\repos\\Advanced C#\\OlympicFlagList\\DataTransfer\\obj\\",
+        "projectPath": "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\DataTransfer.csproj",
+        "packagesPath": "C:\\Users\\jomeg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Eric\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jomeg\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.3, )"
@@ -49,6 +53,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.3, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
             }
           },
           "imports": [

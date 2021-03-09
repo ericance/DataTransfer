@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace DataTransfer.Models
 {
-	public class OlympicViewModel
-	{
-		public Country Country { get; set; }
-		public string ActiveGame { get; set; } = "all";
-		public string ActiveSport { get; set; } = "all";
-	}
+    public class OlympicViewModel
+    {
+        public Country Country { get; set; }
+        public string ActiveGame { get; set; } = "all";
+        public string ActiveSport { get; set; } = "all";
+    }
 }

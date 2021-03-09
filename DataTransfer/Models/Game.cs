@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DataTransfer.Models
 {
-	public class Game
-	{
-		public string GameID { get; set; }
-		public string GameName { get; set; }
-	}
+    public class Game
+    {
+        public string GameID { get; set; }
+        public string GameName { get; set; }
+    }
 }

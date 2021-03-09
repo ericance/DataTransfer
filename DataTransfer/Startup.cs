@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DataTransfer.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace DataTransfer
 {
@@ -21,11 +23,8 @@ namespace DataTransfer
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddDbContext<OlympicContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("OlympicContext")));
 
@@ -35,10 +34,16 @@ namespace DataTransfer
                 options.AppendTrailingSlash = true;
             });
 
-            services.AddControllersWithViews();
+            services.AddMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(60 * 5);
+                options.Cookie.HttpOnly = false;
+                options.Cookie.IsEssential = true;
+            });
+            services.AddControllersWithViews().AddNewtonsoftJson();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -57,6 +62,8 @@ namespace DataTransfer
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession(); // Default timeout = 20 minutes
 
             app.UseEndpoints(endpoints =>
             {

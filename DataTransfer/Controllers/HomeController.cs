@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DataTransfer.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using DataTransfer.Models;
 
 namespace DataTransfer.Controllers
 {
-	public class HomeController : Controller
-	{
+    public class HomeController : Controller
+    {
         private OlympicContext context;
         public HomeController(OlympicContext ctx)
         {
@@ -15,7 +18,27 @@ namespace DataTransfer.Controllers
         }
         public IActionResult Index(string activeGame = "all", string activeSport = "All")
         {
-            var model = new OlympicListModel
+            var session = new OlympicSession(HttpContext.Session);
+            session.SetActiveGame(activeGame);
+            session.SetActiveSport(activeSport);
+
+            int? count = session.GetMyCountryCount();
+            if (count == null)
+			{
+                var cookies = new OlympicCookies(Request.Cookies);
+                string[] ids = cookies.GetMyCountryIds();
+
+                List<Country> mycountries = new List<Country>();
+                if (ids.Length > 0)
+				{
+                    mycountries = context.Countries.Include(testc => testc.Game)
+                        .Include(t => t.Sport)
+                        .Where(t => ids.Contains(t.CountryID)).ToList();
+				}
+                session.SetMyCountries(mycountries);
+			}
+
+            var model = new OlympicListViewModel
             {
                 ActiveGame = activeGame,
                 ActiveSport = activeSport,
@@ -30,27 +53,52 @@ namespace DataTransfer.Controllers
             model.Countries = query.ToList();
             return View(model);
         }
-
-        [HttpPost]
-        public RedirectToActionResult Details(OlympicViewModel model)
-        {
-            TempData["ActiveGame"] = model.ActiveGame;
-            TempData["ActiveSport"] = model.ActiveSport;
-            return RedirectToAction("Details", new { ID = model.Country.CountryID });
-        }
+        
+        // Uses session
         [HttpGet]
         public ViewResult Details(string id)
         {
+            var session = new OlympicSession(HttpContext.Session);
             var model = new OlympicViewModel
             {
                 Country = context.Countries
                     .Include(t => t.Game)
                     .Include(t => t.Sport)
                     .FirstOrDefault(t => t.CountryID == id),
-                ActiveSport = TempData?["ActiveSport"]?.ToString() ?? "all",
-                ActiveGame = TempData?["ActiveGame"]?.ToString() ?? "all"
+                ActiveSport = session.GetActiveGame(),
+                ActiveGame = session.GetActiveSport()
             };
             return View(model);
         }
+
+        [HttpPost]
+        public RedirectToActionResult Add(OlympicViewModel model)
+		{
+            model.Country = context.Countries
+                .Include(t => t.Game)
+                .Include(t => t.Sport)
+                .Where(t => t.CountryID == model.Country.CountryID)
+                .FirstOrDefault();
+
+            var session = new OlympicSession(HttpContext.Session);
+            var countries = session.GetMyCountries();
+            countries.Add(model.Country);
+            session.SetMyCountries(countries);
+
+            /*creates new OlympicCookies object with the controller's response object.
+             * calls SetMyCountryIds and passes updated list of Country objects. 
+             */
+            var cookies = new OlympicCookies(Response.Cookies);
+            cookies.SetMyCountryIds(countries);
+
+            TempData["message"] = $"{model.Country.CountryName} added to your favorites";  //message
+
+            return RedirectToAction("Index",    //redirection
+                new
+                {
+                    ActiveGame = session.GetActiveGame(),
+                    ActiveSport = session.GetActiveSport()
+                });
+		}
     }
 }

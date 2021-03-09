@@ -13,8 +13,22 @@
 </head>
 <body>
     <div class="container">
-        <header class="text-center text-white bg-dark">
-            <h1 class="bg-primary mt-3 p-3 bg-dark">Olympic Games Countries</h1>
+        <header class="text-center text-white bg-light">
+            <h1 class="bg-dark mt-3 p-3">Olympic Games Countries</h1>
+
+            @if (TempData["message"] != null)
+			{
+                <h4 class="bg-success p-2">@TempData["message"]</h4>
+			}
+
+            @if (!ViewContext.View.Path.Contains("Favorites"))
+			{
+                var session = new OlympicSession(Context.Session);
+                <h5 class="bg-dark p-2">
+                    <a asp-controller="Favorite" class="text-white">My Favorite Olympic Countries</a>
+                    <span class="badge badge-light text-dark">@(session.GetMyCountryCount())</span>
+                </h5>
+			}
         </header>
         <main>
             @RenderBody()
