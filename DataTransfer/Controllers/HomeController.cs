@@ -16,7 +16,7 @@ namespace DataTransfer.Controllers
         {
             context = ctx;
         }
-        public IActionResult Index(string activeGame = "all", string activeSport = "All")
+        public IActionResult Index(OlympicListViewModel model, string activeGame = "all", string activeSport = "All")
         {
             var session = new OlympicSession(HttpContext.Session);
             session.SetActiveGame(activeGame);
@@ -38,13 +38,9 @@ namespace DataTransfer.Controllers
                 session.SetMyCountries(mycountries);
 			}
 
-            var model = new OlympicListViewModel
-            {
-                ActiveGame = activeGame,
-                ActiveSport = activeSport,
-                Games = context.Games.ToList(),
-                Sports = context.Sports.ToList()
-            };
+            model.Games = context.Games.ToList();
+            model.Sports = context.Sports.ToList();
+
             IQueryable<Country> query = context.Countries;
             if (activeGame != "all")
                 query = query.Where(t => t.Game.GameID.ToLower() == activeGame.ToLower());

@@ -8693,19 +8693,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jomeg\\.nuget\\packages\\": {}
+    "C:\\Users\\Eric\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\DataTransfer.csproj",
+      "projectUniqueName": "C:\\Users\\Eric\\source\\repos\\Advanced C#\\Projects\\OlympicFlag\\DataTransfer\\DataTransfer.csproj",
       "projectName": "DataTransfer",
-      "projectPath": "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\DataTransfer.csproj",
-      "packagesPath": "C:\\Users\\jomeg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jomeg\\Source\\Repos\\DataTransfer\\DataTransfer\\obj\\",
+      "projectPath": "C:\\Users\\Eric\\source\\repos\\Advanced C#\\Projects\\OlympicFlag\\DataTransfer\\DataTransfer.csproj",
+      "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Eric\\source\\repos\\Advanced C#\\Projects\\OlympicFlag\\DataTransfer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jomeg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Eric\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
